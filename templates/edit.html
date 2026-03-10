@@ -1,0 +1,87 @@
+<!--
+  edit.html — Edit Existing Blog Post
+  ======================================
+  Pre-fills the form with the existing post data.
+  On update the AI/ML module re-analyzes the content.
+-->
+{% extends "base.html" %}
+
+{% block title %}Edit — {{ post.title }}{% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center mt-4">
+    <div class="col-lg-8">
+        <div class="form-card" id="edit-form-card">
+            <h2 class="fw-bold mb-1">
+                <i class="bi bi-pencil-square me-2"></i>Edit Post
+            </h2>
+            <p class="text-muted mb-4">
+                Update your blog post. AI analysis will be refreshed upon saving.
+            </p>
+
+            <form method="POST" action="{{ url_for('edit', post_id=post.id) }}" id="edit-form">
+
+                <!-- Title -->
+                <div class="mb-3">
+                    <label for="title" class="form-label fw-semibold">
+                        <i class="bi bi-type-h1 me-1"></i>Title
+                    </label>
+                    <input type="text" class="form-control" id="title" name="title" value="{{ post.title }}" required>
+                </div>
+
+                <!-- Content -->
+                <div class="mb-3">
+                    <label for="content" class="form-label fw-semibold">
+                        <i class="bi bi-body-text me-1"></i>Content
+                    </label>
+                    <textarea class="form-control" id="content" name="content" rows="10"
+                        required>{{ post.content }}</textarea>
+                </div>
+
+                <!-- Author -->
+                <div class="mb-3">
+                    <label for="author" class="form-label fw-semibold">
+                        <i class="bi bi-person me-1"></i>Author Name
+                    </label>
+                    <input type="text" class="form-control" id="author" name="author" value="{{ post.author }}">
+                </div>
+
+                <!-- Category -->
+                <div class="mb-4">
+                    <label for="category" class="form-label fw-semibold">
+                        <i class="bi bi-bookmark me-1"></i>Category
+                    </label>
+                    <select class="form-select" id="category" name="category">
+                        {% for cat in categories %}
+                        <option value="{{ cat }}" {% if post.category==cat %}selected{% endif %}>
+                            {{ cat }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- AI info note -->
+                <div class="alert alert-info d-flex align-items-center mb-4" id="ai-note">
+                    <i class="bi bi-robot me-2 fs-5"></i>
+                    <div>
+                        <strong>AI Update:</strong> Sentiment analysis and keyword
+                        extraction will be re-run when you save your changes.
+                    </div>
+                </div>
+
+                <!-- Buttons -->
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <a href="{{ url_for('post', post_id=post.id) }}" class="btn btn-outline-secondary me-md-2">
+                        Cancel
+                    </a>
+                    <button type="submit" class="btn btn-warning" id="save-btn">
+                        <i class="bi bi-save me-1"></i>Save Changes
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

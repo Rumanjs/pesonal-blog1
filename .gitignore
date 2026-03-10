@@ -1,0 +1,36 @@
+# ── Python ──────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+dist/
+build/
+*.egg
+
+# ── Virtual Environment ────────────────────────────
+venv/
+.venv/
+env/
+
+# ── Database ────────────────────────────────────────
+*.db
+*.sqlite3
+
+# ── NLTK Data ───────────────────────────────────────
+nltk_data/
+
+# ── IDE / Editor ────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.qoder/
+
+# ── OS ──────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ── Environment Variables ───────────────────────────
+.env
+.env.local

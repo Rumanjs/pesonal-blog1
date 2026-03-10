@@ -1,0 +1,94 @@
+<!--
+  create.html — Create New Blog Post
+  =====================================
+  Form to create a new blog post.
+  On submission the AI/ML module automatically:
+    • Runs sentiment analysis on the content
+    • Extracts keywords from the content
+-->
+{% extends "base.html" %}
+
+{% block title %}Create Post{% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center mt-4">
+    <div class="col-lg-8">
+        <div class="form-card" id="create-form-card">
+            <h2 class="fw-bold mb-1">
+                <i class="bi bi-plus-circle me-2"></i>Create New Post
+            </h2>
+            <p class="text-muted mb-4">
+                Write your blog post below. AI will automatically analyze the sentiment
+                and extract keywords when you publish.
+            </p>
+
+            <form method="POST" action="{{ url_for('create') }}" id="create-form">
+
+                <!-- Title -->
+                <div class="mb-3">
+                    <label for="title" class="form-label fw-semibold">
+                        <i class="bi bi-type-h1 me-1"></i>Title
+                    </label>
+                    <input type="text" class="form-control" id="title" name="title"
+                        placeholder="Enter an engaging title..." value="{{ title if title else '' }}" required>
+                </div>
+
+                <!-- Content -->
+                <div class="mb-3">
+                    <label for="content" class="form-label fw-semibold">
+                        <i class="bi bi-body-text me-1"></i>Content
+                    </label>
+                    <textarea class="form-control" id="content" name="content" rows="10"
+                        placeholder="Write your blog post here..." required>{{ content if content else '' }}</textarea>
+                </div>
+
+                <!-- Author -->
+                <div class="mb-3">
+                    <label for="author" class="form-label fw-semibold">
+                        <i class="bi bi-person me-1"></i>Author Name
+                    </label>
+                    <input type="text" class="form-control" id="author" name="author"
+                        placeholder="Your name (optional, defaults to Anonymous)"
+                        value="{{ author if author else '' }}">
+                </div>
+
+                <!-- Category -->
+                <div class="mb-4">
+                    <label for="category" class="form-label fw-semibold">
+                        <i class="bi bi-bookmark me-1"></i>Category
+                    </label>
+                    <select class="form-select" id="category" name="category">
+                        {% for cat in categories %}
+                        <option value="{{ cat }}" {% if category and category==cat %}selected{% endif %}>
+                            {{ cat }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- AI info note -->
+                <div class="alert alert-info d-flex align-items-center mb-4" id="ai-note">
+                    <i class="bi bi-robot me-2 fs-5"></i>
+                    <div>
+                        <strong>AI Features:</strong> Upon publishing, the system will
+                        automatically perform <em>sentiment analysis</em> and
+                        <em>keyword extraction</em> on your content.
+                    </div>
+                </div>
+
+                <!-- Submit -->
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <a href="{{ url_for('home') }}" class="btn btn-outline-secondary me-md-2">
+                        Cancel
+                    </a>
+                    <button type="submit" class="btn btn-primary" id="publish-btn">
+                        <i class="bi bi-send me-1"></i>Publish Post
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

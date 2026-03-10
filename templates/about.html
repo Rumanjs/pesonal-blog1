@@ -1,0 +1,150 @@
+<!--
+  about.html — About Page
+  =========================
+  Explains the blog website and its AI/ML features.
+  Useful for engineering students to understand how the AI components work.
+-->
+{% extends "base.html" %}
+
+{% block title %}About{% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center mt-4">
+    <div class="col-lg-9">
+
+        <!-- ── About the Blog ──────────────────────────────────────── -->
+        <div class="about-card mb-4" id="about-section">
+            <h1 class="fw-bold mb-3">
+                <i class="bi bi-info-circle me-2"></i>About This Blog
+            </h1>
+            <p class="lead">
+                This Personal Blog Website is built using <strong>Python Flask</strong>
+                and enhanced with <strong>AI/ML features</strong>. It serves as a
+                mini-project for AI/ML Engineering students, demonstrating how
+                Natural Language Processing can be integrated into a real web application.
+            </p>
+            <p>
+                Users can create, edit, delete, and search blog posts through a clean,
+                responsive interface. Behind the scenes, every post is automatically
+                analysed by two AI modules.
+            </p>
+        </div>
+
+        <!-- ── AI Features ───────────────────────────────────────── -->
+        <div class="about-card mb-4" id="ai-features-section">
+            <h2 class="fw-bold mb-4">
+                <i class="bi bi-cpu me-2"></i>AI / ML Features
+            </h2>
+
+            <!-- Sentiment Analysis -->
+            <div class="feature-block mb-4" id="sentiment-feature">
+                <h4 class="fw-semibold">
+                    <i class="bi bi-emoji-smile me-2 text-success"></i>
+                    1. Sentiment Analysis
+                </h4>
+                <p>
+                    <strong>Library:</strong> <code>TextBlob</code>
+                </p>
+                <p>
+                    <strong>How it works:</strong> TextBlob uses a pre-trained sentiment
+                    lexicon (a dictionary of words with associated polarity scores) under
+                    the hood. When you submit a blog post, the library:
+                </p>
+                <ol>
+                    <li>Tokenises the text into sentences and words.</li>
+                    <li>Looks up each word's polarity in the lexicon.</li>
+                    <li>Averages the polarities to produce a single
+                        <strong>polarity score</strong> between <code>-1.0</code>
+                        (very negative) and <code>+1.0</code> (very positive).
+                    </li>
+                    <li>The score is then mapped to a label:
+                        <ul>
+                            <li><span class="badge sentiment-positive">Positive</span>
+                                — score &gt; 0.1</li>
+                            <li><span class="badge sentiment-negative">Negative</span>
+                                — score &lt; -0.1</li>
+                            <li><span class="badge sentiment-neutral">Neutral</span>
+                                — score between -0.1 and 0.1</li>
+                        </ul>
+                    </li>
+                </ol>
+                <div class="alert alert-success mt-3">
+                    <strong>Example:</strong> The text
+                    <em>"I love machine learning, it is amazing!"</em> yields a polarity
+                    of approximately <code>0.62</code> → labelled as
+                    <span class="badge sentiment-positive">Positive</span>.
+                </div>
+            </div>
+
+            <!-- Keyword Extraction -->
+            <div class="feature-block" id="keyword-feature">
+                <h4 class="fw-semibold">
+                    <i class="bi bi-tags me-2 text-primary"></i>
+                    2. Keyword Extraction (RAKE)
+                </h4>
+                <p>
+                    <strong>Library:</strong> <code>rake-nltk</code>
+                    (Rapid Automatic Keyword Extraction)
+                </p>
+                <p>
+                    <strong>How it works:</strong> RAKE is an unsupervised,
+                    domain-independent algorithm that:
+                </p>
+                <ol>
+                    <li>Splits the text at stopwords (common words like "the", "is", "and")
+                        and punctuation to identify candidate keyword phrases.</li>
+                    <li>Builds a word co-occurrence matrix from those phrases.</li>
+                    <li>Scores each candidate phrase using the formula:
+                        <code>score = word_degree / word_frequency</code>.
+                    </li>
+                    <li>Ranks the phrases by score and returns the top-5.</li>
+                </ol>
+                <div class="alert alert-primary mt-3">
+                    <strong>Example:</strong> From the text
+                    <em>"Deep learning models use convolutional neural networks for
+                        image classification tasks"</em>, RAKE might extract:
+                    <span class="badge keyword-badge">convolutional neural networks</span>
+                    <span class="badge keyword-badge">image classification tasks</span>
+                    <span class="badge keyword-badge">deep learning models</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── Tech Stack ────────────────────────────────────────── -->
+        <div class="about-card" id="tech-stack-section">
+            <h2 class="fw-bold mb-4">
+                <i class="bi bi-stack me-2"></i>Technology Stack
+            </h2>
+            <div class="row text-center g-3">
+                <div class="col-6 col-md-3">
+                    <div class="tech-icon-card">
+                        <i class="bi bi-filetype-py display-4 text-primary"></i>
+                        <p class="fw-semibold mt-2 mb-0">Python</p>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="tech-icon-card">
+                        <i class="bi bi-globe display-4 text-success"></i>
+                        <p class="fw-semibold mt-2 mb-0">Flask</p>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="tech-icon-card">
+                        <i class="bi bi-database display-4 text-warning"></i>
+                        <p class="fw-semibold mt-2 mb-0">SQLite</p>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="tech-icon-card">
+                        <i class="bi bi-cpu display-4 text-danger"></i>
+                        <p class="fw-semibold mt-2 mb-0">AI / NLP</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
